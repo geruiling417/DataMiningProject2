@@ -13,18 +13,27 @@ def readAndProcess(fileName):
         for line in file:
             textArray.append(line.strip().split('|')[2])
 
-def BagOfWordsCreator(textArray):
-        vectorizer = TfidfVectorizer(max_features=5000)
-        BOW = vectorizer.fit_transform(textArray)     
+def bagOfWordsCreator(textArray):
+        vectorizer = CountVectorizer()
+        vectorizer.fit(textArray)
+        BOW = vectorizer.transform(textArray)     
+        print(BOW[0])
         return BOW
 
-def CosineDistance(BagOfWords):
-    cosineSimilarities = linear_kernel(BagOfWords, BagOfWords)
+def cosineDistance(bagOfWords):
+    cosineSimilarities = linear_kernel(bagOfWords, bagOfWords)
     cosineSimilarities = cosineSimilarities.flatten()
     cosineSimilarities = cosineSimilarities[cosineSimilarities != 1]
     plt.hist(cosineSimilarities, bins = 500)
     plt.show()
     
+def euclideanDistance(bagOfWords):
+    euclideanSimiliarties = euclidean_distances(bagOfWords)
+    euclideanSimiliarties = euclideanSimiliarties.flatten()
+    euclideanSimiliarties = euclideanSimiliarties[euclideanSimiliarties != 0]
+    print(euclideanSimiliarties)
+    plt.hist(euclideanSimiliarties, bins = 500)
+    plt.show()
+    
 readAndProcess("cnnhealth.txt")
-BagOfWords = BagOfWordsCreator(textArray)
-CosineDistance(BagOfWords)
+bagOfWords = bagOfWordsCreator(textArray)
