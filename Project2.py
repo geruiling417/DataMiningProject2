@@ -17,13 +17,22 @@ def bagOfWordsCreator(textArray):
         vectorizer = CountVectorizer()
         vectorizer.fit(textArray)
         BOW = vectorizer.transform(textArray)     
-        print(BOW[0])
+        """
+        with open("BagOfWords.txt", "w") as file:
+            for i in BOW:
+                file.write(str(i)) 
+        """
         return BOW
 
 def cosineDistance(bagOfWords):
     cosineSimilarities = linear_kernel(bagOfWords, bagOfWords)
     cosineSimilarities = cosineSimilarities.flatten()
     cosineSimilarities = cosineSimilarities[cosineSimilarities != 1]
+    """
+    with open("CosineDistances.txt", "w") as file:
+            for i in cosineSimilarities:
+                file.write(str(i))
+    """
     plt.hist(cosineSimilarities, bins = 500)
     plt.show()
     
@@ -31,9 +40,15 @@ def euclideanDistance(bagOfWords):
     euclideanSimiliarties = euclidean_distances(bagOfWords)
     euclideanSimiliarties = euclideanSimiliarties.flatten()
     euclideanSimiliarties = euclideanSimiliarties[euclideanSimiliarties != 0]
-    print(euclideanSimiliarties)
+    """
+    with open("EuclideanDistances.txt", "w") as file:
+        for i in euclideanSimiliarties:
+            file.write(str(i))    
+    """
     plt.hist(euclideanSimiliarties, bins = 500)
     plt.show()
     
 readAndProcess("cnnhealth.txt")
 bagOfWords = bagOfWordsCreator(textArray)
+cosineDistance(bagOfWords)
+euclideanDistance(bagOfWords)
