@@ -7,12 +7,22 @@ from sklearn.metrics.pairwise import euclidean_distances
 from sklearn.metrics.pairwise import linear_kernel
 
 textArray = []
-
+'''
+Got rid of http links
+'''
 def readAndProcess(fileName):
     with open(fileName, 'r', encoding="utf8") as file:
         for line in file:
-            textArray.append(line.strip().split('|')[2])
-
+            tempString = ""
+            temp = line.strip().split('|')[2]
+            tempArray = temp.split(' ')
+            for i in tempArray:
+                if i[:4] == 'http':
+                    i = ' '
+                tempString += i+ ' '
+            print(tempString)
+            textArray.append(tempString)
+            
 def bagOfWordsCreator(textArray):
         vectorizer = CountVectorizer()
         vectorizer.fit(textArray)
