@@ -26,9 +26,9 @@ def bagOfWordsCreator(textArray):
                 file.write(str(i)) 
         """
         return BOW
+    
 def plotClusters(simplifiedCLusters, labels, title):
-    plt.figure(figsize=(10, 5))
-    plt.scatter(simplifiedCLusters[:, 0], simplifiedCLusters[:, 1], c=labels, cmap='viridis', s=2)
+    plt.scatter(simplifiedCLusters[:, 0], simplifiedCLusters[:, 1], c=labels)
     plt.title(title)
     plt.show()
     
