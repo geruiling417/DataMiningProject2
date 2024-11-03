@@ -184,7 +184,7 @@ def aggEuclidean(bagOfWords):
    
 def kMeans(bagOfWords):
     #Cluster Them
-    kmeans = KMeans(n_clusters=10)
+    kmeans = KMeans(init='random', n_init= 1000, max_iter=5000)
     kmeans.fit(bagOfWords)
     labels = kmeans.labels_
     print("KMEANS")
